@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Blog</title>
+</head>
+<body class="container">
+    <form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите заголовок</label><br>
+            <input type="text" name="title" />
+        </p>
+        <p>
+            <label>Введите текст</label><br>
+            <input type="text" name="text" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+    {% if posts.count > 0 %}
+    <h2>Список постов</h2>
+    <table>
+        <tr><th>Id</th><th>Заголовок</th><th>Текст</th></tr>
+        {% for post in posts %}
+        <tr><td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.text }}</td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
