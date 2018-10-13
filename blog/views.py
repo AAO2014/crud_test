@@ -1,7 +1,15 @@
+from celery import shared_task
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 from blog.models import Post
+
+
+@shared_task
+def image_save(filename_in, filename_out):
+    print
+    file = open(filename_in, 'r')
+    file.write(filename_out)
 
 
 def index(request):
@@ -11,11 +19,14 @@ def index(request):
 
 def create(request):
     if request.method == "POST":
+        filename = request.POST.get("image")
         newpost = Post(
             title=request.POST.get("title"),
-            text=request.POST.get("text")
+            text=request.POST.get("text"),
+            image=filename
         )
         newpost.save()
+        # image_save.delay(filename, newpost.image.path)
     return HttpResponseRedirect("/blog/")
 
 

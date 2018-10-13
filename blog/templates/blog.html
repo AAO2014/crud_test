@@ -15,14 +15,18 @@
             <label>Введите текст</label><br>
             <input type="text" name="text" />
         </p>
+        <p>
+            <label>Укажите файл картинки:</label><br>
+            <input type="file" name="image" />
+        </p>
         <input type="submit" value="Сохранить" >
     </form>
     {% if posts.count > 0 %}
     <h2>Список постов</h2>
     <table>
-        <tr><th>Id</th><th>Заголовок</th><th>Текст</th></tr>
+        <tr><th>Id</th><th>Заголовок</th><th width="50%">Текст</th><th>Картинка</th></tr>
         {% for post in posts %}
-        <tr><td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.text }}</td></tr>
+        <tr><td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.text }}</td><td><img height="50" width="50" src="{{ post.image.url }}"></td></tr>
         {% endfor %}
     </table>
     {% endif %}
